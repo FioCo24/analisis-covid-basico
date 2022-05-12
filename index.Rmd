@@ -24,7 +24,9 @@ covid <- read.csv(file = "C:/Users/Fiorela/datos.csv", sep = ";")
 
 ### Opciones generales
 
+```{r decimales}
 options(scipen = 7)
+```
 
 ### Curación de Datos
 
@@ -42,6 +44,7 @@ covid$FECHA <- as.Date(covid$FECHA, format = "%d/%m/%Y")
 ##### Positivos
 
 ```{r casos positivos acumulados}
+# Gráfico de líneas
 plot(x = covid$FECHA,
   y = covid$positivos,
   type = "l",
@@ -50,28 +53,94 @@ plot(x = covid$FECHA,
   main = "Casos positivos acumulados de COVID en Costa Rica",
   xlab = "Fecha",
   ylab = "Casos positivos" )
-```
 
 # Formato del eje x
-
-```{r fechax}
-
-```
-
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7)
 
 # Formato del eje y
-```{r positivosy}
-
+axis(
+  side = 2,
+  covid$positivos,
+  labels = TRUE,  
+  at = seq(0, 1000000, by = 200000),
+  cex.axis = .7
+)
 ```
 
 
 ##### Fallecidos
+```{r}
+# Gráfico de líneas
+plot(
+  covid$FECHA,
+  covid$fallecidos,
+  type = "l",
+  xaxt = "n",
+  yaxt = "n",
+  main = "Casos fallecidos acumulados de COVID en Costa Rica",
+  xlab = "Fecha",
+  ylab = "Casos fallecidos"
+)
+
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7)
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$fallecidos,
+  labels = TRUE,  
+  at = seq(0, 10000, by = 2000),
+  cex.axis = .7
+)
+
+```
+
 
 ##### Otros
 
 #### Casos diarios
 
 ##### Positivos
+
+```{r positivos}
+
+# Gráfico de barras
+barplot(
+  height=covid$nue_posi,
+  names.arg=format(covid$FECHA, "%Y"),
+  ann = FALSE, 
+  bty = "n", 
+  tck = 0, 
+  xaxt = "n",
+  space = 1,
+  main="Casos positivos por día",
+  xlab = "Fecha",
+  ylab = "Casos positivos",
+  col = "blue"
+)
+
+# Fechas minima y máxima
+x_min <- min(covid$FECHA)
+x_max <- max(covid$FECHA)
+
+# Formato del eje X
+axis(
+  side = 1,
+  at = match(seq(as.Date(x_min), x_max, "years"), covid$FECHA) * (1 + 1),
+  labels = format(seq(as.Date(x_min), x_max, "years"), "%Y"),
+  lwd = 0)
+
+```
+
 
 ##### Fallecidos
 
