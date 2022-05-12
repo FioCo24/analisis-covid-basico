@@ -10,5 +10,68 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## **Presentación**  
-Este documento presenta varios gráficos estadísticos de los datos de COVID-19 en Costa Rica publicados por el Ministerio de Salud en https://geovision.uned.ac.cr/oges/. Los gráficos han sido generados con funciones del paquete base del lenguaje de programación R.
+Este documento presenta varios gráficos estadísticos de los datos de COVID-19 en Costa Rica publicados por el Ministerio de Salud en https://geovision.uned.ac.cr/oges/. Los gráficos han sido generados con funciones del paquete base del lenguaje de programación [R](https://www.r-project.org/).
+
+## **Entrada**
+
+### Datos generales de casos
+
+```{r carga-datos}
+covid <- read.csv(file = "C:/Users/Fiorela/datos.csv", sep = ";")
+```
+
+## Procesamiento
+
+### Opciones generales
+
+options(scipen = 7)
+
+### Curación de Datos
+
+```{r}
+covid$FECHA <- as.Date(covid$FECHA, format = "%d/%m/%Y")
+```
+
+
+## Salidas
+
+### Gráficos
+
+#### Casos acumulados
+
+##### Positivos
+
+```{r casos positivos acumulados}
+plot(x = covid$FECHA,
+  y = covid$positivos,
+  type = "l",
+  xaxt = "n",
+  yaxt = "n",
+  main = "Casos positivos acumulados de COVID en Costa Rica",
+  xlab = "Fecha",
+  ylab = "Casos positivos" )
+```
+
+# Formato del eje x
+
+```{r fechax}
+
+```
+
+
+# Formato del eje y
+```{r positivosy}
+
+```
+
+
+##### Fallecidos
+
+##### Otros
+
+#### Casos diarios
+
+##### Positivos
+
+##### Fallecidos
 
