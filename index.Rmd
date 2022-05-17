@@ -256,7 +256,7 @@ axis(
 
 ```
 
-##### En salón
+##### En salón y UCI
 ```{r}
 
 # Gráfico de líneas de casos en salon y en UCI
@@ -299,9 +299,58 @@ axis(
   side = 2,
   covid$salon,
   labels = TRUE,  
-  at = seq(0, 1000000, by = 200000),
+  at = seq(0, 1000, by = 250),
   cex.axis = .7
 )
 
 ```
 
+#### Otros
+```{r}
+
+# Gráfico de líneas de casos activos
+plot(
+  covid$FECHA,
+  covid$adul_acti,
+  type = "l",
+  xaxt = "n",
+  yaxt = "n",
+  main = "Casos acumulados de COVID en Costa Rica",
+  xlab = "Fecha",
+  ylab = "Casos",
+  col = "blue"
+)
+
+
+# Casos adultos mayores
+lines(covid$FECHA, covid$am_acti, col="red")
+
+# Casos menores
+lines(covid$FECHA, covid$menor_acti, col="green")
+
+# Leyenda
+legend(
+  x = "topleft",
+  inset = 0.03,
+  legend = c("Adultos", "Adultos mayores", "Menores"),
+  col = c("blue", "red", "green"),
+  lty = 1,
+  cex = 0.7)
+
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7)
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$adul_acti,
+  labels = TRUE,  
+  at = seq(0, 100000, by = 200000),
+  cex.axis = .7
+)
+
+```
